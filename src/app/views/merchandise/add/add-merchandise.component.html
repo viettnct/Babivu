@@ -1,0 +1,141 @@
+<div *ngFor="let message of messages" class="message alert {{message.messageClass}}"
+     role="alert">{{message.detail}}</div>
+
+<div autoscroll="true" class="ng-scope">
+    <div class="row">
+        <div class="col-left pr-2 pl-2 mb-3 mb-md-0">
+            <div class="block">
+                <div class="block-title text-uppercase p-2 font-weight-bold">Thông tin kiện hàng</div>
+                <div class="block-content p-3">
+                    <form #merchandiseForm="ngForm"
+                          (ngSubmit)="saveMerchandise(merchandiseForm)"
+                          [ngFormOptions]="{updateOn: 'blur'}">
+                        <div class="form-group">
+                            <label for="orderId">Mã đơn hàng</label>
+                            <input type="text" class="form-control" id="orderId" name="orderId"
+                                   required #orderId="ngModel" ngModel [(ngModel)]="merchandises.orderCode"
+                                    (blur)="loadMerchandiseList(orderId.value,  page.size, page.pageNumber + 1)">
+                            <div *ngIf="orderId.invalid && ((orderId.dirty || orderId.touched) || merchandiseForm.submitted)"
+                                 class="alert-no-bg">
+                                <small *ngIf="orderId.errors.required" role="alert">Trường "Mã đơn hàng" không được để
+                                    trống</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="merchandiseCode">Mã kiện hàng</label>
+                            <input type="text" class="form-control" id="merchandiseCode" name="merchandiseCode"
+                                   required #merchandiseCode="ngModel" ngModel
+                                   [(ngModel)]="merchandises.merchandiseCode">
+                            <div *ngIf="merchandiseCode.invalid && ((merchandiseCode.dirty || merchandiseCode.touched)|| merchandiseForm.submitted)"
+                                 class="alert-no-bg">
+                                <small *ngIf="merchandiseCode.errors.required" role="alert">Trường "Mã kiện hàng" không
+                                    được để trống</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="netWeight">Cân nặng</label>
+                            <input type="number" class="form-control" id="netWeight" name="netWeight" ngModel
+                                   [(ngModel)]="merchandises.netWeight">
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm form-group">
+                                <label for="length">Thể tích</label>
+                                <input type="number" (blur)="calWeightConversionRatio()" class="form-control" id="length" name="length" placeholder="Dài"
+                                       ngModel [(ngModel)]="merchandises.length">
+                            </div>
+                            <div class="col-sm form-group">
+                                <label for="width" class="label-hide d-none d-sm-block">Placeholder</label>
+                                <input type="number" (blur)="calWeightConversionRatio()" class="form-control" id="width" name="width" placeholder="Rộng"
+                                       ngModel [(ngModel)]="merchandises.width">
+                            </div>
+                            <div class="col-sm form-group">
+                                <label for="height" class="label-hide d-none d-sm-block">Placeholder</label>
+                                <input type="number" (blur)="calWeightConversionRatio()" class="form-control" id="height" name="height" placeholder="Cao"
+                                       ngModel [(ngModel)]="merchandises.height">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="chargedWeight">Cân nặng quy đổi</label>
+                            <input type="number" class="form-control" id="chargedWeight" name="chargedWeight" ngModel
+                                   [(ngModel)]="merchandises.chargedWeight">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Trạng thái</label>
+                            <select class="form-control" id="status" name="status" ngModel
+                                    [(ngModel)]="merchandises.status">
+                                <option *ngFor="let status of orderStatus" [ngValue]="status.value"
+                                        data-status="">{{status.displayValue}}</option>
+                            </select>
+                        </div>
+                        <div class="row ml-0">
+                            <button type="submit" class="btn btn-primary w-25 col col-3"
+                                    [disabled]="!merchandises.orderCode">Lưu</button>
+                            <button type="button" (click)="completeMerchandise()" [disabled]="!merchandises.orderCode"
+                                    class="btn btn-success w-25 col col-3 ml-3">Hoàn tất</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-right pr-2 pl-2">
+            <div class="merchandise-list mb-3 block">
+                <div class="block-title text-uppercase p-2 font-weight-bold">Thông tin kiện hàng</div>
+                <div class="block-content p-sm-3">
+                    <div class="merchandise-action d-flex">
+                        <div class="edit action" (click)="edit()">Sửa</div>
+                        |
+                        <div class="delete action" (click)="delete()">Xóa</div>
+                        |
+                        <div class="view-history action" (click)="viewHistory()">Xem lịch sử kiện hàng</div>
+                    </div>
+                    <ngx-datatable
+                            class="material"
+                            rowHeight="auto"
+                            [rows]="merchandisesList"
+                            [messages]="tableMessage"
+                            [columnMode]="columnMode.force"
+                            [headerHeight]="45"
+                            [footerHeight]="45"
+                            [limit]="5"
+                            [selected]="selected"
+                            [selectionType]="selectionType.checkbox"
+                            [selectAllRowsOnPage]="false"
+                            (select)="onSelect($event)">
+                        <ngx-datatable-column
+                                [width]="30"
+                                [sortable]="false"
+                                [canAutoResize]="false"
+                                [draggable]="false"
+                                [resizeable]="false"
+                                [headerCheckboxable]="true"
+                                [checkboxable]="true"
+                        >
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="merchandiseCode" name="Mã kiện"></ngx-datatable-column>
+                        <ngx-datatable-column prop="netWeight" name="Cân nặng">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="value">{{value}} kg</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="netWeight" name="Thể tích">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <span *ngIf="row.length && row.width && row.height">{{row.length}} x {{row.width}}
+                                    x {{row.height}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="chargedWeight" name="Quy đổi">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span *ngIf="value">{{value}} kg</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="statusDisplay" name="Trạng thái">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <div class="text-white p-1 status status-{{row.status}}">{{row.statusDisplay}}</div>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,224 @@
+<div autoscroll="true" class="ng-scope" >
+    <section class="content-header">
+        <h1> Giỏ hàng</h1>
+        <ol class="breadcrumb">
+            <li><a href="https://naipot.com/backend/#"><i class="fa fa-dashboard"></i> Trang chủ </a></li>
+            <li><a href="javascript:;">Quản lý nhập hàng</a></li>
+            <li class="active">Giỏ hàng</li>
+        </ol>
+    </section>
+    <div class="box box-chipo clearfix">
+        <div class="checkout-step">
+            <div class="cs-step active">
+                <span class="cs-number">1</span>
+                <span class="cs-name">Giỏ hàng</span>
+            </div>
+            <div class="cs-step">
+                <span class="cs-number">2</span>
+                <span class="cs-name">Chọn Địa Chỉ Nhận Hàng</span>
+            </div>
+            <div class="cs-step">
+                <span class="cs-number">3</span>
+                <span class="cs-name">Đặt hàng</span>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="box-body ng-scope" style="margin-top: 15px;" *ngFor="let data of _allItemsCart">
+            <div class="Deposit-all box-sales clearfix box-shop ng-scope" >
+                <div class="box-full">
+                    <div class="text-logo">
+                        <p><img alt="" src="https://www.tmall.com/favicon.ico">
+                            <a href="https://youren.tmall.com/" style="color:white; font-weight: bold" target="_blank" class="ng-binding">有人旗舰店</a>
+                        </p>
+                    </div>
+                    <ul>
+                        <li ng-show="partnerSaleCheck" class="ng-hide" *ngFor="let itemsServices of data.lstServiceCart">
+                            <label *ngIf="itemsServices.isOption == 2" data-toggle="tooltip" data-placement="top">
+                                <div class="checker">
+                                    <span class="checked ng-binding">
+                                        <input type="checkbox" [checked]="itemsServices.isChecked" (click)="showOptions(itemsServices, data)"  > 
+                                        {{itemsServices.display}}
+                                    </span>
+                                </div>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row"  >
+                    <div class="box-left col-md-8">
+                        <div class="table table-orders">
+                            <div class="th" style="width: 100%; text-align: center;">
+                                <div class="th checkbox-data" style="width: 5%">
+                                    <label>
+                                        <input type="checkbox"  checked="checked">
+                                    </label>
+                                </div>
+                                <div style="width: 35%;  text-align: center" class="th">Sản phẩm</div>
+                                <div style="width: 10%" class="th d-none d-sm-block text-center">Số lượng</div>
+                                <div style="width: 20%;" class="th d-none d-sm-block text-center">Đơn giá</div>
+                                <div style="width: 20%;" class="th d-none d-sm-block text-center">Tiền hàng</div>
+                                <div style="width: 10%" class="th d-none d-sm-block text-center">Thao tác </div>
+                            </div>
+                        </div>
+                        
+                        <div class="items tbl-list-details" style="margin-top: 10px; border-bottom: 1px solid #e8f0fe;" *ngFor="let itemProducts of data.items">
+                            <div class="table list-cart-sd cart-items ng-scope">
+                                <div>
+                                    <div class="td" style="margin-bottom: 50px; width: 100%; display: flex;">
+                                        <div style="width: 5%" class="td check checkbox-data">
+                                            <label>
+                                                <input class="checkData" type="checkbox" checked="checked" >
+                                            </label>
+                                        </div>
+                                        <div style="width: 35%" class="td product">
+                                            <div class="box-product">
+                                                <span class="img-order-product">
+                                                    <img class="lazy loaded" alt="" 
+                                                    src="{{itemProducts.itemImage}}" >
+                                                </span>
+                                                <span class="content-detail-product link-detail-sd">
+                                                    <a href="{{itemProducts.itemLink}}" target="_blank" class="ng-binding">
+                                                        {{itemProducts.itemName}}
+                                                    </a>
+                                                    <div class="mg10">
+                                                        <p class="ng-binding">{{itemProducts.propetiesName}}</p>
+                                                    </div>
+                                                    <div class="d-block d-sm-none">
+                                                        <div class="box-quantity clearfix mg10">
+                                                            <strong class="qty-left">Số lượng: </strong>
+                                                            <input type="text" number-only="" require-min="0"
+                                                            class="updateQuantity form-control text-center ng-pristine ng-untouched ng-valid ng-empty" 
+                                                            min="0" step="1" value="{{itemProducts.quantity}}">
+                                                        </div>
+                                                        <div class="mg10">
+                                                            <strong>Đơn giá: </strong> 
+                                                            <span class="ng-binding">¥{{itemProducts.itemPriceNdt}}</span>
+                                                            / 
+                                                            <span class="ng-binding">{{itemProducts.itemPriceNdt * 35000}}</span> 
+                                                        </div>
+                                                        <div class="mg10">
+                                                            <strong>Thành tiền: </strong> <span class="mobile_totalAmount ng-binding">¥{{itemProducts.itemPriceNdt}}</span>
+                                                            đ / <span class="mobile_totalAmountNDT ng-binding">{{itemProducts.itemPriceNdt * 35000}}</span>
+                                                        </div>
+                                                        <div class="mg10">
+                                                            <strong>Thao tác: </strong> 
+                                                            <span class="btn-group" role="group" aria-label="Default button group">
+                                                                <!-- <button type="button" class="btn bg-primary btn-save btn-xs saveLink" data-save="0" >
+                                                                    <i class="fa fa-heart"></i> Lưu
+                                                                </button> -->
+                                                                <button type="button" class="btn bg-orange btn-xs" (click)="removeItemShop(itemProducts)" >
+                                                                    <i class="fa fa-trash"></i> Xóa
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div style="width: 10%" class="item-quantity d-none d-sm-block text-center td">
+                                            <div class="quantity-data">
+                                                <input type="text" number-only="" class="form-control text-center updateQuantity ng-pristine ng-untouched ng-valid ng-empty" 
+                                                    require-min="0"  min="0" step="1" value="1">
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 20%;" class="d-none d-sm-block text-center td unit-price">
+                                            <div class="price-unit unit-price-content">
+                                                <span class="price-vnd money-text ng-binding" > ¥{{itemProducts.itemPriceNdt}}</span><br>
+                                                <span class="price-cny money-text ng-binding" >{{itemProducts.itemPriceNdt * 35000}} đ</span>
+                                            </div>
+                                        </div>
+                                        <div style="width: 20%;" class="d-none d-sm-block text-center td product-price">
+                                            <div class="price-total product-price-content">
+                                                <span class="price-vnd money-text"><strong><span class="price_vnd ng-binding">¥{{itemProducts.itemPriceNdt}}</span>đ</strong></span><br>
+                                                <span class="price-cny money-text"><strong>¥<span class="price_ndt ng-binding">{{itemProducts.itemPriceNdt * 35000}}</span></strong></span>
+                                            </div>
+                                        </div>
+                                        <div style="width: 10%;" class="d-none d-sm-block text-center td">
+                                            <div class="btn-group" role="group" aria-label="Default button group">
+                                                <!-- <button type="button" class="btn bg-primary btn-save btn-xs saveLink" data-save="0" >
+                                                    <i class="fa fa-heart"></i> Lưu
+                                                </button> -->
+                                                <button type="button" class="btn bg-orange btn-xs" (click)="removeItemShop(itemProducts)">
+                                                    <i class="fa fa-trash"></i> Xóa
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div></div>
+                                        <div colspan="5" class="block-note">
+                                            <div class="form-group pd0">
+                                                <textarea class="form-control border-none updateNoteItem ng-pristine ng-untouched ng-valid ng-empty" placeholder="Ghi chú cho sản phẩm">
+                                                    {{itemProducts.description}}
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="box-paging text-center margin">
+                            <p><span class="totalQuantity ng-binding">1</span>/<span class="totalLink ng-binding">1</span> link | 
+                                <a href="javascript:;" (click)="removeShop(data.cartId)">
+                                    <i class="fa fa-trash"></i> Xóa Shop
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box-right ">
+                            <div class="box-header">
+                                <div class="form-group row clearfix" style="padding: 0px 20px 0px 20px" *ngFor="let itemsServices of data.lstServiceCart">
+                                    <label *ngIf="itemsServices.isOption == 1"  class="col-sm-8 control-label">{{itemsServices.display}}</label>
+                                    <div *ngIf="itemsServices.isOption == 1"  class="col-sm-4 pull-right" >
+                                        <p class="text-right text-bold6 total-price totalAmount ng-binding">{{itemsServices.amount}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row clearfix">
+                                    <label class="col-sm-8 control-label">Tổng tiền</label>
+                                    <div class="col-sm-4 pull-right" >
+                                        <p class="text-right text-bold6 total-price totalAmount ng-binding" [innerHTML]="data.totalPrice"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="box-body">
+                                <div class="pd10 clearfix">
+                                    <label style="font-weight: bold; margin-bottom: 0px !important;">Ghi chú cho đơn hàng</label>
+                                    <textarea style="margin-top: 0px !important;" class="form-control updateNoteShop ng-pristine ng-untouched ng-valid ng-empty" placeholder="Chú thích cho Naipot về đơn hàng">
+                                        {{data.description}}
+                                    </textarea>
+                                </div>
+                                <div class="text-right pd10"><button type="button"class="btn btn-primary">Đặt hàng</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row" role="group" style="text-align: center; margin-bottom: 20px; margin-top: -20px">
+            <div class="pd10 total-price box clearfix text-right">
+                <div class="pull-left">
+                    <div class="delete-all" style="line-height: 50px;">
+                        <label >
+                            <div class="icheckbox_minimal-blue" aria-checked="false" aria-disabled="false" style="position: relative;">
+                                <input type="checkbox" class="minimal updateCheckALL" style="position: absolute; opacity: 0;">
+                            </div> Chọn tất cả
+                        </label>
+                        <label class="chipo-refresh" title="Làm mới trang giỏ hàng">
+                            <span ng-if="totalShop &lt; 80" class="ng-scope" > | </span>
+                            <a href="javascript:;" > <i class="fa fa-refresh"></i> Làm mới </a> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body cart-empty d-none">
+            <p class="text-red text-center"> 
+                <strong><i class="fa fa-frown-o"></i> Giỏ hàng không có sản phẩm nào.</strong> Cài công cụ đặt hàng 
+                <a target="_blank" href="https://chrome.google.com/webstore/detail/ojecmeaghlcaiekkffhblonfnlcbepbl">tại đây</a>
+            </p>
+        </div>
+    </div>
+</div>

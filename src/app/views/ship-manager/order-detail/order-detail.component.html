@@ -1,0 +1,386 @@
+<div class="btn-dashboard">
+  <span>
+    <button mat-raised-button color="warn" (click)="paymentOrder()">Thanh Toán</button>
+  </span>
+  <span class="top-feature">
+    <button mat-raised-button color="warn">Vận Chuyển</button>
+  </span>
+  <span class="top-feature">
+    <button mat-raised-button color="warn">Khiếu Nại</button>
+  </span>
+</div>
+
+<h2 class="title-lst-client">Chi Tiết Đơn Hàng</h2>
+<mat-card class="card">
+  <mat-card-header class="header-card">
+    <span class="title-name">Mã Đơn Hàng:</span>&nbsp;
+    <span class="code-name">{{orderDetailRO.orderData.orderCode}}</span>
+    <mat-chip>
+      <span style="color: white; margin: 5px;">Đã Nhận Hàng</span>
+    </mat-chip>
+  </mat-card-header>
+</mat-card>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <mat-card>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header class="first" [collapsedHeight]="customCollapsedHeight"
+            [expandedHeight]="customExpandedHeight">
+            <mat-panel-title>
+              <i class="fas fa-info-circle"></i>
+              <span class="title">Thông Tin Đơn Hàng</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col-7">Địa Chỉ Nhận Hàng</th>
+                <th scope="col-3">Thông Tin Khác</th>
+                <th scope="col-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">
+                  <span style="font-size: 13px">{{orderDetailRO.deliveryAddress?.receiver}} </span><span class="font">/
+                    {{orderDetailRO.deliveryAddress?.phone}}</span><br>
+                  <span
+                    class="font">{{orderDetailRO.deliveryAddress?.address}}{{orderDetailRO.deliveryAddress?.districtDisplay}}\
+                    {{orderDetailRO.deliveryAddress?.cityDisplay}}
+                  </span>
+                </th>
+                <td>
+                  Người Bán
+                </td>
+                <td style="color: rgb(115, 115, 252);">
+                  <a href="{{orderDetailRO.orderData.senderLink}}">{{orderDetailRO.orderData.sender}}</a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Khối Lượng Hàng Hóa</th>
+                <td>Tỉ Lệ Đặt Cọc</td>
+                <td>{{orderDetailRO.orderData.depositRate}}%</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span class="font">Tổng Cân Nặng Tịnh</span>
+                  <span class="font" style="margin-left: 92px;">{{orderDetailRO.orderData.netWeight}}kg</span><br>
+                  <span class="font">Tổng Cân Nặng Phí VCQTT<i class="fas fa-question-circle"></i></span>
+                  <span class="font" style="margin-left: 26px;">{{orderDetailRO.orderData.paymentWeigth}}kg</span>
+                </th>
+                <td>Level</td>
+                <td style="color: rgb(115, 115, 252);">{{orderDetailRO.orderData.userLevel}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight" [expandedHeight]="customExpandedHeight">
+            <mat-panel-title>
+              <i class="fas fa-cube"></i>
+              <span class="title">Danh Sách Kiện Hàng({{orderDetailRO.lsMerchandise.length}})</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table class="table-history" [dataSource]="dataSourceMer">
+            <ng-container matColumnDef="merchandiseCode">
+              <th mat-header-cell *matHeaderCellDef> Mã kiện </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.merchandiseCode}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="paymentWeight">
+              <th mat-header-cell *matHeaderCellDef> Cân nặng </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.paymentWeight}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="length">
+              <th mat-header-cell *matHeaderCellDef> Thể tích </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.length}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="statusDisplay">
+              <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.statusDisplay}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="changeDate">
+              <th mat-header-cell *matHeaderCellDef> Thời gian </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.changeDate | date:'HH:mm dd/MM/yyyy '}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsMer; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsMer;"></tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight" [expandedHeight]="customExpandedHeight">
+            <mat-panel-title>
+              <i class='fas fa-truck-moving'></i>
+              <span class="title">Hành Trình Đơn Hàng</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table class="table-history" [dataSource]="dataSource">
+            <ng-container matColumnDef="content">
+              
+              <td mat-cell *matCellDef="let relative"> {{relative.content || "--"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="historyDate">
+              
+              <td mat-cell *matCellDef="let relative"> {{relative.historyDate | date:'HH:mm dd/MM/yyyy '}}</td>
+            </ng-container>
+            
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight" [expandedHeight]="customExpandedHeight">
+            <mat-panel-title>
+              <i class='fas fa-exchange-alt'></i>
+              <span class="title">Lịch Sử Giao Dịch</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table class="table-history" [dataSource]="dataSourceRec">
+            <ng-container matColumnDef="receiptDate">
+              <th mat-header-cell *matHeaderCellDef> Thời gian </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.receiptDate  | date:'HH:mm dd/MM/yyyy '}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="convertedAmount">
+              <th mat-header-cell *matHeaderCellDef> Giá trị </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.convertedAmount| number}}đ</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reasionDisplay">
+              <th mat-header-cell *matHeaderCellDef> Loại giao dịch </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.reasionDisplay}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Nội dung </th>
+              <td mat-cell *matCellDef="let merchandise"> {{merchandise.description }}</td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRec; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsRec;"></tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight" [expandedHeight]="customExpandedHeight">
+            <mat-panel-title>
+              <i class="fas fa-frown"></i>
+              <span class="title"> Khiếu Nại</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <table mat-table class="table-history" [dataSource]="dataSourceCom">
+            <ng-container matColumnDef="complainContent">
+              <th mat-header-cell *matHeaderCellDef> Nội dung </th>
+              <td mat-cell *matCellDef="let complain"> {{complain.complainContent}}</td>
+            </ng-container>
+            <ng-container matColumnDef="complainSettle">
+              <th mat-header-cell *matHeaderCellDef> Đề xuất </th>
+              <td mat-cell *matCellDef="let complain"> {{complain.complainSettle}} </td>
+            </ng-container>
+            <ng-container matColumnDef="statusDisplay">
+              <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+              <td mat-cell *matCellDef="let complain"> {{complain.statusDisplay}} </td>
+            </ng-container>
+            <ng-container matColumnDef="createdDate">
+              <th mat-header-cell *matHeaderCellDef> Thời gian </th>
+              <td mat-cell *matCellDef="let complain"> {{complain.createdDate | date:'dd/MM/yyyy '}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsCom; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsCom;"></tr>
+          </table>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-content class="message-box">
+        <mat-grid-list rowHeight="100px" cols="12">
+          <mat-grid-tile [colspan]="12" class="grid-first">
+            <div class="col-6 both-title" >Sản Phẩm</div>
+            <div class="col-2 both-title text-center">Số Lượng</div>
+            <div class="col-2 both-title text-center">Tiền Hàng</div>
+            <div class="col-2 both-title text-center">Thao Tác</div>
+          </mat-grid-tile>
+          <div *ngFor="let data of lOrderDetail" class="box-item">
+            <mat-grid-tile [colspan]="6">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col-4" style="min-width:50px">
+                      <img class="img" src="{{data.itemImage}}" />
+                    </th>
+                    <th scope="col-8" style="vertical-align: middle !important;">
+                      <div>
+                        <span>{{data.itemName}}</span><br>
+                        <span>{{data.itemCode}}</span><br>
+                        <span>{{data.propetiesName}}</span><br>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+              {{data.quantityOrder || 0}}/
+              {{data.quantityBuy || 0}}/
+              {{data.quantityReceived || 0}}</mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+              <div><span>{{data.orderPrice | number}}đ</span> <br><span>¥{{data.orderOriginalPrice| number:'1.2-2' }}</span> </div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+              <button class="button-orange" mat-raised-button> <i style="margin-right: 5px;"
+                  class="not-css fas fa-frown"></i>Khiếu nại</button>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="12">
+              <mat-form-field style="width: 95%;" class="example-full-width">
+                <textarea matInput value="{{data.description}}" placeholder="Ghi chú sản phẩm"></textarea>
+              </mat-form-field>
+            </mat-grid-tile>
+          </div>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div class="col-md-4">
+    <mat-card class="example-card">
+      <mat-card-content class="message-box">
+        <table class="table">
+          <thead>
+            <tr style="border-bottom: 1px solid #acbed4;">
+              <th scope="col-6">Thông Tin Tài Chính</th>
+              <th scope="col-6" style="color: orange; text-align: right">1¥ = {{orderDetailRO.orderData.exchangeRate | number }}đ
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="orderDetailRO.lsService.length !== 0">
+            <tr *ngIf="orderDetailRO.lsService[0].feeType === '7'">
+              <td>Tổng tiền hàng</td>
+              <td class="text-right">{{orderDetailRO.orderData.totalPrice| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '2'">
+              <td>Phí vận chuyển nội địa TQ</td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount | number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '4'">
+              <td>Phí mua hàng</td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '3'">
+              <td>Phí Kiện Gỗ <i class="not-css fas fa-question-circle"></i></td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '5'">
+              <td>Phí điểm đến</td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '1'">
+              <td>Phí chống sốc</td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '6'">
+              <td>Phí vận chuyển TQ - VN <i class="not-css fas fa-question-circle"></i></td>
+              <td class="text-right">{{orderDetailRO.lsService.amount| number}}đ</td>
+            </tr>
+            <tr *ngIf="orderDetailRO.lsService[0].feeType == '7'">
+              <td>Phí bảo hiểm <i class="not-css fas fa-question-circle"></i></td>
+              <td class="text-right">{{orderDetailRO.lsService[0].amount| number}}đ</td>
+            </tr>
+            <tr>
+              <td style="boder-top: solid 1px #acbed4">Tổng giá trị đơn hàng</td>
+              <td class="text-right">{{orderDetailRO.orderData.amount| number}}đ</td>
+            </tr>
+            <tr>
+              <td> Tiền khuyến mại</td>
+              <td class="text-right">{{orderDetailRO.orderData.promotion| number}}đ</td>
+            </tr>
+            <tr>
+              <td> Đã Thanh Toán</td>
+              <td class="text-right">{{orderDetailRO.orderData.paid| number}}đ</td>
+            </tr>
+            <tr>
+              <td>Chipo trả lại</td>
+              <td class="text-right">{{orderDetailRO.orderData.refundAmount| number}}đ</td>
+            </tr>
+            <tr>
+              <td> Đặt cọc</td>
+              <td class="text-right"> Đặt cọc</td>
+            </tr>
+            <tr>
+              <td>Còn thiếu</td>
+              <td class="text-right">{{orderDetailRO.orderData.missing| number}}đ</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-content class="message-box">
+        <mat-card-header class="message-header-card">
+          <i class="far fa-comments"></i> <span class="title-name"> Trao đổi với Chipo trên đơn</span>
+        </mat-card-header>
+        <div fxLayout="row" fxLayoutAlign="center start">
+          <div fxFlex.gt-md="100" fxFlex.gt-sm="90" fxFlex="100">
+            <mat-card class="mat-card-top">
+              <mat-sidenav-container class="mat-sidenav">
+                <mat-card-content class="sidenav">
+                  <div *ngFor="let data of dataChat" class="chat-conversation-user them">
+                    <div class="chat-conversation-message">
+                      <p class="message"><span
+                          style="font-weight: bold;font-size: 16px;">{{data.userId}}:</span>&nbsp;<span
+                          class="chat-date">{{data.content}}&nbsp;{{data.chatTime | date:'dd/MM/yyyy '}}</span>
+                      </p>
+                    </div>
+                  </div>
+                </mat-card-content>
+                <hr>
+                <mat-card-actions>
+                  <div fxLayout="row" layout-align="start center">
+
+                    <div layout="row" layout-align="start center" flex>
+                      <div class="input-group">
+                        <input type="text" [(ngModel)]="messageSend" class="form-control" ng-model="monitor.query"
+                          placeholder="Quý Khách có thể trao đổi tại đây" aria-describedby="addon">
+                        <button (click)="send()" class="send-button">
+                          Gửi
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-actions>
+              </mat-sidenav-container>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

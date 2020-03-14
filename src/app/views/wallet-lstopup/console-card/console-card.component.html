@@ -1,0 +1,87 @@
+<div class="btn-dashboard">
+  <span class="top-feature" *ngFor="let item of _lstButton; index as i;" >
+      <button mat-raised-button (click)="checkingAction(item)" color="warn">{{item.name}}</button>
+  </span> 
+</div>
+
+<h2 class="title-lst-client">Danh sách thành viên</h2>
+
+<div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="checked">
+        <mat-header-cell class="header" *matHeaderCellDef>
+          <div  class="tbTitle">Check box</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <mat-checkbox [(ngModel)]="element.checked" (click)="onChange(element)" ></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="walletName">
+        <mat-header-cell class="header" *matHeaderCellDef> 
+            <div  class="tbTitle">Ví</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.walletName}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="receiptId">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">ID</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.receiptId}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="createdUserName">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">UserName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.createdUserName}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="amount">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Số tiền</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="currencyShortDisplay">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Đơn vị</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.currencyShortDisplay}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="status">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Trạng thái</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="receiptDate">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Ngày tạo</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.receiptDate}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="description">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Nội dung</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
+      
+      <ng-container  matColumnDef="depositUserName">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">Người tạo</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.depositUserName}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>

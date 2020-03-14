@@ -1,0 +1,255 @@
+<div *ngFor="let message of messages" class="message alert {{message.messageClass}}"
+     role="alert">{{message.detail}}</div>
+<h2 class="title-lst-client m-1 mb-3">Đặt hàng</h2>
+<div class="btn-dashboard m-1 mb-2">
+    <span class="top-feature">
+        <button mat-raised-button color="warn"
+        (click)="startBuy()">Bắt đầu</button>
+    </span>
+    <span class="top-feature">
+        <button mat-raised-button
+                (click)="orderBuyForm.ngSubmit.emit()"
+                [disabled]="!orderBuyForm.form.valid"
+                color="warn">Lưu</button>
+    </span>
+    <span class="top-feature">
+        <button mat-raised-button
+                (click)="completeOrderForm()"
+                [disabled]="!orderBuyForm.form.valid"
+                color="warn">Hoàn tất</button>
+    </span>
+    <span class="top-feature">
+        <button mat-raised-button color="warn">Hủy</button>
+    </span>
+</div>
+<mat-card class="card m-1">
+    <mat-card-header class="header-card">
+        <span class="title-name">Mã Đơn Hàng:</span>&nbsp;
+        <span class="code-name font-weight-bold">{{orderBuy.orderData.orderCode}}</span>
+    </mat-card-header>
+</mat-card>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <mat-card class="example-card">
+            <mat-card-content class="message-box">
+                <div class="product-list-header row mb-3 p-2 border-bottom">
+                    <div class="col font-weight-bold">Sản phẩm</div>
+                    <div class="col-2 d-none d-sm-block text-center font-weight-bold">Số lượng order</div>
+                    <div class="col-2 d-none d-sm-block text-center font-weight-bold">Đơn giá</div>
+                    <div class="col-2 d-none d-sm-block text-center font-weight-bold">Số lượng mua</div>
+                    <div class="col-2 d-none d-sm-block text-center font-weight-bold">Giá mua thật</div>
+                </div>
+                <ul class="product-list-content list-group list-group-flush">
+                    <li *ngFor="let item of orderBuy.lsOrderDetail"
+                        class="product-item row mb-3 list-group-item pb-2 d-flex">
+                        <div class="product-info col d-flex mb-2">
+                            <div class="product-image col-5 mr-1">
+                                <img alt="" src="{{item.itemImage}}">
+                            </div>
+                            <div class="product-name">
+                                <a href="{{item.itemLink}}">
+                                    {{item.itemName}}
+                                </a>
+                                <div>
+                                    {{item.propetiesName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 d-flex mb-2">
+                            <label for="quantityOrder-{{item.orderDetailId}}" class="d-block d-sm-none col font-weight-bold">Số lượng
+                                order:</label>
+                            <div class="text-sm-center col">
+                                <div class="form-group w-75 m-auto">
+                                    <input type="number" class="form-control p-1"
+                                           id="quantityOrder-{{item.orderDetailId}}" name="quantityOrder"
+                                           ngModel
+                                           [(ngModel)]="item.quantityOrder">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 d-flex mb-2">
+                            <label for="orderOriginalPrice-{{item.orderDetailId}}" class="d-block d-sm-none col font-weight-bold">Đơn
+                                giá:</label>
+                            <div class="text-sm-center col">
+                                <div class="form-group w-75 m-auto">
+                                    <input type="text" class="form-control p-1"
+                                           id="orderOriginalPrice-{{item.orderDetailId}}" name="orderOriginalPrice"
+                                           mvndrMatCurrencyFormat
+                                           [allowNegative]="false"
+                                           [currencyCode]="'CNY'"
+                                           [value]="item.orderOriginalPrice"
+                                           ngModel
+                                           [(ngModel)]="item.orderOriginalPrice">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 d-flex mb-2">
+                            <label for="quantityBuy-{{item.orderDetailId}}" class="d-block d-sm-none col font-weight-bold">Số lượng
+                                mua:</label>
+                            <div class="text-sm-center col">
+                                <div class="form-group w-75 m-auto">
+                                    <input type="number" class="form-control p-1"
+                                           id="quantityBuy-{{item.orderDetailId}}" name="quantityBuy"
+                                           ngModel
+                                           [(ngModel)]="item.quantityBuy">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 d-flex mb-2">
+                            <label for="buyOriginalPrice-{{item.orderDetailId}}" class="d-block d-sm-none col font-weight-bold">Giá mua
+                                thật:</label>
+                            <div class="text-sm-center col">
+                                <div class="form-group w-75 m-auto">
+                                    <input type="text" class="form-control p-1"
+                                           id="buyOriginalPrice-{{item.orderDetailId}}" name="buyOriginalPrice"
+                                           mvndrMatCurrencyFormat
+                                           [allowNegative]="false"
+                                           [currencyCode]="'CNY'"
+                                           ngModel
+                                           [(ngModel)]="item.buyOriginalPrice">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-2">
+                            <div class="form-group">
+                                <textarea class="form-control p-1"
+                                          id="description" name="description"
+                                          ngModel rows="2"
+                                          placeholder="Ghi chú cho sản phẩm"
+                                          [(ngModel)]="item.description">
+                                </textarea>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-md-4">
+        <mat-card class="example-card">
+            <mat-card-content class="message-box">
+                <mat-card-header class="message-header-card">
+                    <i class="far fa-comments"></i> <span class="title-name"> Trao đổi với Chipo trên đơn</span>
+                </mat-card-header>
+                <div fxLayout="row" fxLayoutAlign="center start">
+                    <div fxFlex.gt-md="100" fxFlex.gt-sm="90" fxFlex="100">
+                        <mat-card class="mat-card-top">
+                            <mat-sidenav-container class="mat-sidenav">
+                                <mat-card-content class="sidenav">
+                                    <div *ngFor="let data of dataChat" class="chat-conversation-user them">
+                                        <div class="chat-conversation-message">
+                                            <p class="message"><span
+                                                    style="font-weight: bold;font-size: 16px;">{{data.chatName}}:</span>&nbsp;<span
+                                                    class="chat-date">{{data.content}}&nbsp;{{data.chatTime | date:'dd/MM/yyyy '}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                                <hr>
+                                <mat-card-actions>
+                                    <div fxLayout="row" layout-align="start center">
+                                        <div layout="row" layout-align="start center" flex>
+                                            <div class="input-group">
+                                                <input type="text" [(ngModel)]="messageSend" class="form-control p-1"
+                                                       ng-model="monitor.query"
+                                                       placeholder="Quý Khách có thể trao đổi tại đây"
+                                                       aria-describedby="addon">
+                                                <button (click)="sendMessage()" class="send-button">
+                                                    Gửi
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-sidenav-container>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="example-card">
+            <mat-card-content class="message-box">
+                <mat-card-header class="message-header-card mb-3">
+                    <span class="title-name">Thông tin thanh toán</span>
+                </mat-card-header>
+                <div>
+                    <form #orderBuyForm="ngForm"
+                          (ngSubmit)="saveOrderForm()"
+                          [ngFormOptions]="{updateOn: 'blur'}">
+
+                        <div class="form-group mb-2">
+                            <label for="orderDataDescription">Ghi chú đơn hàng</label>
+                            <textarea class="form-control p-1" id="orderDataDescription" name="orderDataDescription" ngModel
+                                   [(ngModel)]="orderBuy.orderData.description">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="userName">Tên người đặt hàng</label>
+                            <input type="text" class="form-control p-1" id="userName" name="userName" ngModel
+                                   readonly
+                                   [(ngModel)]="orderBuy.orderData.userName">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="orderId">Mã đơn hàng</label>
+                            <input type="text" class="form-control p-1" id="orderId" name="orderId"
+                                   required #orderId="ngModel" ngModel [(ngModel)]="orderBuy.orderData.orderNumber">
+                            <div *ngIf="orderId.invalid && ((orderId.dirty || orderId.touched) || orderBuyForm.submitted)"
+                                 class="alert-no-bg">
+                                <small *ngIf="orderId.errors.required" role="alert">Trường "Mã đơn hàng" không được để
+                                    trống</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="paymentLink">Link thanh toán</label>
+                            <input type="text" class="form-control p-1" id="paymentLink" name="paymentLink" ngModel
+                                   [(ngModel)]="orderBuy.orderData.paymentLink">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="inlandFee">Phí vận chuyển nội địa</label>
+                            <input type="text" class="form-control p-1" id="inlandFee" name="inlandFee"
+                                   mvndrMatCurrencyFormat
+                                   [allowNegative]="false"
+                                   [currencyCode]="'CNY'"
+                                   required
+                                   #inlandFeeTmp="ngModel"
+                                   ngModel
+                                   [(ngModel)]="inlandFee">
+                            <div *ngIf="inlandFeeTmp.invalid && ((inlandFeeTmp.dirty || inlandFeeTmp.touched)|| orderBuyForm.submitted)"
+                                 class="alert-no-bg">
+                                <small *ngIf="inlandFeeTmp.errors.required" role="alert">Trường "Phí vận chuyển nội địa" không
+                                    được để trống</small>
+                            </div>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="promotionOrder">Tiền khuyến mại khách</label>
+                            <input type="text" class="form-control p-1" id="promotionOrder" name="promotionOrder"
+                                   mvndrMatCurrencyFormat
+                                   [allowNegative]="false"
+                                   [currencyCode]="'CNY'"
+                                   ngModel
+                                   [(ngModel)]="orderBuy.orderData.promotionOrder">
+                        </div>
+                        <div class="form-group mb-2">
+                            <label for="promotionBuy">Tiền khuyến mại đầy đủ</label>
+                            <input type="text" class="form-control p-1" id="promotionBuy" name="promotionBuy"
+                                   mvndrMatCurrencyFormat
+                                   [allowNegative]="false"
+                                   [currencyCode]="'CNY'"
+                                   ngModel
+                                   [(ngModel)]="orderBuy.orderData.promotionBuy">
+                        </div>
+                    </form>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="ship-orders">
+    
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef>Thông tin đơn hàng</mat-header-cell>
+      <mat-cell *matCellDef="let element" >
+        <mat-grid-list cols="6" rowHeight="3:1" class="info">
+            <mat-grid-tile colspan="1" rowspan="5">
+                <div class="img">
+                    img
+                </div>
+            </mat-grid-tile>
+            <!-- 1 -->
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title id">
+                    {{element.orderCode}}:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    {{element.statusDisplay}}
+                </div>
+            </mat-grid-tile>
+            <!-- 2 -->
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Shop:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    {{element.sender}}
+                </div>
+            </mat-grid-tile>
+            <!-- 3 -->
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Số lượng:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    {{element.totalQuantityOrder + element.totalQuantityBuy + element.totalQuantityReceived}}
+                </div>
+            </mat-grid-tile>
+            <!-- 4 -->
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Cân nặng:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    {{element.paymentWeigth}}
+                </div>
+            </mat-grid-tile>
+            <!-- 5 -->
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Loại:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Thông tin tài chính</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-grid-list cols="5" rowHeight="3:1" class="content-amount">
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Tiền hàng:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Phí mua hàng:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Phí mua hàng:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Phí VC nội địa TQ:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Phí VC TQ - VN:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Tổng giá trị đơn:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Đã thanh toán:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+                <div class="title">
+                    Còn thiếu:
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <div class="action">
+                    
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef>Thao tác</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-button (click)="redirect()" >
+            <i class="fa fa-plus"></i>chi tiết
+        </button>
+        <button mat-button (click)="payment(element.orderId)" >
+            <i class="fa fa-plus"></i>chi tiết
+        </button>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

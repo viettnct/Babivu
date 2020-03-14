@@ -1,0 +1,37 @@
+<div class="relative">
+    <div class="form-bg">
+        <div fxLayout="row" fxLayoutAlign="center start" class="pt-2">
+            <div class="login" fxLayout="column" fxFlex.xl="40" fxFlex.lg="40" fxFlex.md="50" fxFlex.sm="80" fxFlex.xs="90">
+                <mat-card class="login-session">
+                    <div>
+                        <h2 class="base-border">Đăng nhập</h2>
+                        <form #form="ngForm" (ngSubmit)="login()">
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <mat-form-field style="width: 100%">
+                                    <input matInput placeholder="E-Mail" type="text" name="email" required [(ngModel)]="email">
+                                </mat-form-field>
+                                <mat-form-field style="width: 100%" class="mb-1">
+                                    <input matInput placeholder="Password" type="password" name="password" required [(ngModel)]="password">
+                                </mat-form-field>
+
+                                <div class="content-info" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
+                                    <div class="column" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+                                        <mat-checkbox >Ghi nhớ</mat-checkbox>
+                                    </div>
+                                 
+                                    <div class="column" fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+                                        <p class="mat-text-warn mb-0 forget">Quên mật khẩu</p>
+                                    </div>
+                                 </div >
+
+
+                                <button class="mat-green" (click)="login()" mat-raised-button>SIGN IN</button>
+                                <p class="mb-0">Don't have an account? <a [routerLink]="['/register']" class="mat-text-primary">Register Here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

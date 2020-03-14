@@ -1,0 +1,387 @@
+<div autoscroll="true" class="ng-scope" >
+        <div class="box box-chipo clearfix">
+            <div class="checkout-step">
+                <div class="cs-step deactive">
+                    <span class="cs-number"><i class="fa fa-check"></i></span>
+                    <span class="cs-name"><a href="https://naipot.com/backend/#/gio-hang">Giỏ hàng</a></span>
+                </div>
+                <div class="cs-step active">
+                    <span class="cs-number">2</span>
+                    <span class="cs-name">Chọn Địa Chỉ Nhận Hàng</span>
+                </div>
+                <div class="cs-step">
+                    <span class="cs-number">3</span>
+                    <span class="cs-name">Đặt hàng</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix" style="margin-top: 15px !important;">
+            <div class="col-md-6">
+                <div class="col-md-12" style="padding: 0">
+                    <div class="box-header with-border box-ls">
+                        <i class="fa fa-map-marker"></i>
+                        <span class="box-title"> Chọn địa chỉ nhận hàng</span>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body box-body-content">
+                        <p class="padding ng-binding">Quý khách có thể lưu tối đa 5 địa chỉ nhận hàng trên Naipot. Phí VC Nội Địa Việt Nam sẽ thay đổi tùy theo từng tỉnh.</p>
+                        <div class="description">
+                            <div class="addressbox">
+                                <div class="adr-oms radio ng-scope" >
+                                        <div class="address">
+                                            <div class="radio-check-address">
+                                                <input type="checkbox" name="r1" class="minimal"  [(ngModel)]="!addNewAddress" >
+                                            </div>
+                                            <div class="content-address">
+                                                <p><strong class="item-name ng-binding">Bùi Trần Huy</strong> - <span class="item-mobile ng-binding">0902244692</span></p>
+                                                <p class="ng-binding">354 bạch mai - Quận Hai Bà Trưng - Hà Nội</p>
+                                                <p class="text-red ng-binding"></p>
+                                                <ul class="d-block d-sm-none sm-action-address">
+                                                    <li><a href="javascript:;" ><i class="fa fa-edit"></i> Sửa </a></li>
+                                                    <li><a href="javascript:;" ><i class="fa fa-trash"></i> Xoá  </a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="action-address d-none d-sm-block">
+                                                <ul class="list-inline">
+                                                    <li><a href="javascript:;" ><i class="fa fa-edit"></i> Sửa </a></li>
+                                                    <li><a href="javascript:;" ><i class="fa fa-trash"></i> Xoá  </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    <!-- </label> -->
+
+                                </div><!-- end ngRepeat: address in listAddress -->
+                                <div class="adr-oms add_new_address radio " data-address="add">
+                                    <div class="address" style="margin-bottom: 15px;">
+                                        <div class="radio-check-address">
+                                            <input type="checkbox" name="r1" class="minimal" [(ngModel)]="addNewAddress" >
+                                        </div>
+                                        <div class="content-address">
+                                            <p><strong class="item-name ng-binding">Thêm địa chỉ nhận hàng</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="add_address hidden" *ngIf="addNewAddress">
+                                        <form class="form ng-pristine ng-valid" id="user_address">
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-3 control-label">Người nhận <span class="text-red">*</span> </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="receiverName" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Nguyễn văn A" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix box-tel">
+                                                <label class="col-sm-3 control-label">Điện thoại <span class="text-red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class=" col-md-6">
+                                                            <input type="tel" class="form-control wd50 ng-pristine ng-untouched ng-valid ng-empty" name="receiverPhone" placeholder="098123456"></div>
+                                                        <div class="col-md-6"><span class="text-lastchild ng-binding">Nhân viên giao nhận Naipot sẽ liên hệ với SĐT này.</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-3 control-label">Email<br><small class="text-nomal">(không bắt buộc)</small></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="receiverEmail" placeholder="mail@gmail.com">
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-3 control-label">Tỉnh/TP <span class="text-red">*</span></label>
+                                                <div class="col-md-9">
+                                                    <div class="row">
+                                                        <div class="col-md-6 ls-form">
+                                                            <select name="cityId" class="form-control select2 ng-pristine ng-untouched ng-valid select2-hidden-accessible ng-empty" tabindex="-1" aria-hidden="true">
+                                                            <option value="" class="" selected="selected">Chọn Tỉnh/TP</option>
+                                                            <option label="Hà Nội" value="number:18">Hà Nội</option>
+                                                            <option label="TP.Hồ Chí Minh" value="number:52">TP.Hồ Chí Minh</option>
+                                                            <option label="Cao Bằng" value="number:1">Cao Bằng</option>
+                                                            <option label="Bắc Ninh" value="number:2">Bắc Ninh</option>
+                                                            <option label="Hà Giang" value="number:3">Hà Giang</option>
+                                                            <option label="Lai Châu" value="number:4">Lai Châu</option>
+                                                            <option label="Lào Cai" value="number:5">Lào Cai</option>
+                                                            <option label="Bắc Kạn" value="number:6">Bắc Kạn</option>
+                                                            <option label="Tuyên Quang" value="number:7">Tuyên Quang</option>
+                                                            <option label="Hưng Yên" value="number:8">Hưng Yên</option>
+                                                            <option label="Phú Yên" value="number:9">Phú Yên</option>
+                                                            <option label="Điện Biên" value="number:10">Điện Biên</option>
+                                                            <option label="Yên Bái" value="number:11">Yên Bái</option>
+                                                            <option label="Thái Nguyên" value="number:12">Thái Nguyên</option>
+                                                            <option label="Sóc Trăng" value="number:13">Sóc Trăng</option>
+                                                            <option label="Lạng Sơn" value="number:14">Lạng Sơn</option>
+                                                            <option label="Vĩnh Phúc" value="number:15">Vĩnh Phúc</option>
+                                                            <option label="Sơn La" value="number:16">Sơn La</option>
+                                                            <option label="Phú Thọ" value="number:17">Phú Thọ</option>
+                                                            <option label="Bắc Giang" value="number:19">Bắc Giang</option>
+                                                            <option label="Quảng Ninh" value="number:20">Quảng Ninh</option>
+                                                            <option label="Hải Dương" value="number:22">Hải Dương</option>
+                                                            <option label="Hòa Bình" value="number:23">Hòa Bình</option>
+                                                            <option label="Hải Phòng" value="number:24">Hải Phòng</option>
+                                                            <option label="Hà Nam" value="number:25">Hà Nam</option>
+                                                            <option label="Thái Bình" value="number:26">Thái Bình</option>
+                                                            <option label="Ninh Bình" value="number:27">Ninh Bình</option>
+                                                            <option label="Nam Định" value="number:28">Nam Định</option>
+                                                            <option label="Thanh Hóa" value="number:29">Thanh Hóa</option>
+                                                            <option label="Nghệ An" value="number:30">Nghệ An</option>
+                                                            <option label="Hà Tĩnh" value="number:31">Hà Tĩnh</option>
+                                                            <option label="Quảng Bình" value="number:32">Quảng Bình</option>
+                                                            <option label="Quảng Trị" value="number:33">Quảng Trị</option>
+                                                            <option label="Thừa Thiên Huế" value="number:34">Thừa Thiên Huế</option>
+                                                            <option label="Đà Nẵng" value="number:35">Đà Nẵng</option>
+                                                            <option label="Quảng Nam " value="number:36">Quảng Nam </option>
+                                                            <option label="Quảng Ngãi" value="number:37">Quảng Ngãi</option>
+                                                            <option label="Kon Tum" value="number:38">Kon Tum</option>
+                                                            <option label="Bình Định " value="number:39">Bình Định </option>
+                                                            <option label="Gia Lai" value="number:40">Gia Lai</option>
+                                                            <option label="Đăk Lăk " value="number:42">Đăk Lăk </option>
+                                                            <option label="Khánh Hòa" value="number:43">Khánh Hòa</option>
+                                                            <option label="Đăk Nông" value="number:44">Đăk Nông</option>
+                                                            <option label="Bình Phước " value="number:45">Bình Phước </option>
+                                                            <option label="Lâm Đồng" value="number:46">Lâm Đồng</option>
+                                                            <option label="Ninh Thuận" value="number:47">Ninh Thuận</option>
+                                                            <option label="Tây Ninh" value="number:48">Tây Ninh</option>
+                                                            <option label="Bình Dương" value="number:49">Bình Dương</option>
+                                                            <option label="Đồng Nai" value="number:50">Đồng Nai</option>
+                                                            <option label="Bình Thuận" value="number:51">Bình Thuận</option>
+                                                            <option label="Long An " value="number:53">Long An </option>
+                                                            <option label="Bà Rịa -  Vũng Tàu" value="number:54">Bà Rịa -  Vũng Tàu</option>
+                                                            <option label="An Giang" value="number:56">An Giang</option>
+                                                            <option label="Đồng Tháp" value="number:57">Đồng Tháp</option>
+                                                            <option label="Tiền Giang" value="number:58">Tiền Giang</option>
+                                                            <option label="Cần Thơ" value="number:59">Cần Thơ</option>
+                                                            <option label="Bến Tre" value="number:60">Bến Tre</option>
+                                                            <option label="Vĩnh Long" value="number:61">Vĩnh Long</option>
+                                                            <option label="Kiên Giang" value="number:62">Kiên Giang</option>
+                                                            <option label="Hậu Giang" value="number:63">Hậu Giang</option>
+                                                            <option label="Trà Vinh" value="number:64">Trà Vinh</option>
+                                                            <option label="Bạc Liêu" value="number:65">Bạc Liêu</option>
+                                                            <option label="Cà Mau" value="number:68">Cà Mau</option>
+                                                        </select>
+                                                        <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100px;">
+                                                            <span class="selection">
+                                                                <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-cityId-va-container">
+                                                                    <span class="select2-selection__rendered" id="select2-cityId-va-container" title="Chọn Tỉnh/TP">Chọn Tỉnh/TP</span>
+                                                                    <span class="select2-selection__arrow" ><b ></b>
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                        </span>
+                                                        </div>
+                                                        <div class="col-md-6 ls-form">
+                                                            <select name="districtId" class="form-control select2 ng-pristine ng-untouched ng-valid select2-hidden-accessible ng-empty" tabindex="-1" aria-hidden="true">
+                                                                <option value="" class="" selected="selected">Chọn Quận/Huyện</option>
+                                                            </select>
+                                                            <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100px;">
+                                                                <span class="selection">
+                                                                    <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-districtId-ao-container">
+                                                                        <span class="select2-selection__rendered" id="select2-districtId-ao-container" title="Chọn Quận/Huyện">Chọn Quận/Huyện</span>
+                                                                        <span class="select2-selection__arrow" >
+                                                                            <b ></b>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-3 control-label">Số nhà <span class="text-red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="số 12, Ngõ 520, Ngách 30" name="receiverAddress" >
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-3 control-label">Ghi chú <small class="text-nomal">(không bắt buộc)</small></label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" cols="30" rows="4" placeholder="Ví dụ: Chuyển hàng ngoài giờ hành chính"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <div class="col-sm-4 pull-right">
+                                                    <button type="button" class="btn btn-block btn-danger" >Thêm địa chỉ</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div><!-- end .add_address-->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end .box-body-->
+                </div>
+                <!-- ngIf: checkWarehouseVN -->
+            </div>
+            <div class="col-md-6">
+                <div class="box-header with-border box-ls">
+                    <i class="fa fa-th-list"></i>
+                    <span class="box-title"> Danh Sách Shop Kết Đơn</span>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body box-body-content" ng-init="totalAmount = 0">
+                    <form name="form" class="ng-pristine ng-valid">
+                        <div class="list-order-bond tbl-checkout-sd table-responsive">
+                            <table class="table " id="table-shops">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">
+                                            <label>
+                                                <div class="icheckbox_minimal-blue checked" aria-checked="false" aria-disabled="false" style="position: relative;">
+                                                    <input type="checkbox" class="minimal updateCartALL" checked="" style="position: absolute; opacity: 0;">
+                                                    <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; 
+                                                    padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                                                    </ins>
+                                                </div>
+                                            </label>
+                                        </th>
+                                        <th width="20%">Ảnh</th>
+                                        <th width="20%">Shop</th>
+                                        <th width="20%" class="text-right">Số lượng</th>
+                                        <th width="20%" class="text-right">Tiền hàng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="shop ng-scope" >
+                                        <td>
+                                            <label>
+                                                <div class="icheckbox_minimal-blue checked" aria-checked="false" aria-disabled="false" style="position: relative;">
+                                                    <input type="checkbox" ng-checked="true" cart-id="800239533209" cart-total="338590" class="minimal updateCart" checked="checked" 
+                                                    style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; 
+                                                    width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                                                    </ins>
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <img class="img-order-product" alt="" src="./copy_files/O1CN01JSexKA2L4iBl9CwDg_!!0-item_pic.jpg_100x100q90.jpg">
+                                        </td>
+                                        <td class="ng-binding">有人旗舰店 <br> (TMALL)</td>
+                                        <td class="text-right">
+                                            <span data-toggle="tooltip" data-placement="top" title="" class="ng-binding" data-original-title="Số lượng / Link">1/1</span></td>
+                                        <td class="text-red money-text text-right ng-binding">338.590đ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Custom Tabs -->
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs chipo-nav-tabs" >
+                                <li class="active" data-tab="NORMAL"><a href="javascript:;" data-toggle="tab">Đặt cọc thường</a></li>
+                                <li data-tab="LEND_MONEY"><a href="javascript:;" data-toggle="tab">Đặt cọc 20%</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" >
+                                    <div class="box-total-amount-order">
+                                        <div class="ls-total left-box-total text-right">
+                                            <div><label>Tổng tiền hàng:</label> <b class="tt-price total_price money-text ng-binding" id="totalAmount">338.590đ</b></div>
+                                            <div><label>Đặt cọc (70%):</label> <b class="tt-price deposit_price money-text ng-binding" id="totalDeposit">237.013đ</b></div>
+                                            <div><label>Số dư hiện tại :</label> <b class="tt-price money-text ng-binding">9.468đ</b></div>
+                                        </div>
+                                        <div class="ls-total right-box-total col-md-offset-4 text-right lack_Of_Money" >
+                                            <p class="form-group">
+                                                Quý khách đang thiếu 
+                                                <b class="text-red money-text ng-binding" id="Lack_Of_Money">227.545đ</b> 
+                                                <a href="javascript:;" >
+                                                    <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="Làm mới số dư"></i>
+                                                </a> 
+                                                <br>Quý khách vui lòng nạp tiền để đặt cọc.</p>
+                                            <div class="col-md-offset-6"><a href="https://naipot.com/backend/#/nap-tien" target="_blank" class="btn btn-block btn-danger">Nạp tiền</a></div>
+                                        </div>
+                                        <div class="row confirmDeposit ng-hide" >
+                                            <div class="ls-total col-md-offset-4 text-right">
+                                                <div class="input-group margin ">
+                                                    <input type="password" class="form-control form-deposit ng-pristine ng-untouched ng-valid ng-empty" disabled="false" placeholder="Xác nhận mật khẩu">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-danger form-deposit btn-deposit" disabled="false">Đặt cọc </button>
+                                                    </span>
+                                                </div>
+                                                <p class="text-left text-red ng-binding ng-hide" ><i class="fa fa-exclamation-triangle"></i> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane">
+                                    <div class="box-total-amount-order" style="background: #fbdacd;">
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                Vui lòng chọn tỷ lệ đặt cọc ứng vốn nhập hàng
+                                                <a target="_blank" href="https://chipo.vn/ho-tro/thong-bao/chuong-trinh-ung-von-nhap-hang-0-lai-suat/14897662" title="Tìm hiểu thêm" class="ng-hide">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </a>
+                                                <a target="_blank" href="https://naipot.com/ho-tro/thong-bao/chuong-trinh-ung-von-nhap-hang-0-lai-suat/14897662" title="Tìm hiểu thêm" class="">
+                                                    <i class="fa fa-question-circle"></i>
+                                                </a>
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Tỷ lệ cọc</th>
+                                                            <th class="ng-scope" >
+                                                                <label style="cursor: pointer" class="ng-binding">
+                                                                    <input type="radio" name="CPLendRadio" value="20"  class="ng-pristine ng-untouched ng-valid ng-not-empty"> 20%</label>
+                                                            </th><th class="ng-scope">
+                                                                <label style="cursor: pointer" class="ng-binding">
+                                                                    <input type="radio" name="CPLendRadio" value="25" class="ng-pristine ng-untouched ng-valid ng-not-empty"> 25%</label>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phí ứng vốn</td>
+                                                            <td class="text-danger font-13 ng-binding ng-scope" cp-lend-fee="20" >50.000đ</td>
+                                                            <td class="text-danger font-13 ng-binding ng-scope" cp-lend-fee="25" >50.000đ</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <div class="ls-total left-box-total text-right">
+                                                    <div><label>Tổng tiền hàng:</label> <b class="tt-price total_price money-text ng-binding" id="totalAmount">338.590đ</b></div>
+                                                    <div><label>Đặt cọc (<span class="depositRatioSelect">20</span>%):</label> <b class="tt-price money-text" id="totalDepositLend">---</b></div>
+                                                    <div><label>Phí ứng vốn:</label> <b class="tt-price money-text" id="lendMoneyFee">---</b></div>
+                                                    <div><label>Số dư hiện tại :</label> <b class="tt-price money-text ng-binding">9.468đ</b></div>
+                                                </div>
+                                                <div class="ls-total right-box-total col-md-offset-4 text-right lack_Of_Money" >
+                                                    <p class="form-group">Quý khách đang thiếu <b class="text-red money-text ng-binding" id="Lack_Of_Money">227.545đ</b> 
+                                                        <a href="javascript:;" >
+                                                            <i class="fa fa-refresh" data-toggle="tooltip" data-placement="top" title="Làm mới số dư"></i>
+                                                        </a> <br>Quý khách vui lòng nạp tiền để đặt cọc.</p>
+                                                    <div class="col-md-offset-6"><a href="https://naipot.com/backend/#/nap-tien" target="_blank" class="btn btn-block btn-danger">Nạp tiền</a></div>
+                                                </div>
+                                                <div class="row confirmDeposit ng-hide">
+                                                    <div class="ls-total col-md-offset-4 text-right">
+                                                        <div class="input-group margin ">
+                                                            <input type="password" class="form-control form-deposit ng-pristine ng-untouched ng-valid ng-empty" placeholder="Xác nhận mật khẩu">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-danger form-deposit btn-deposit" >Đặt cọc </button>
+                                                            </span>
+                                                        </div>
+                                                        <p class="text-left text-red ng-binding ng-hide" ><i class="fa fa-exclamation-triangle"></i> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>      
+
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <!-- /.tab-pane -->
+
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+
+                    </form>
+                </div>
+            </div><!-- end .box-body-->
+        </div>
+    <!-- </section> -->
+</div>
+<!-- </section> -->
+<!-- </div> -->

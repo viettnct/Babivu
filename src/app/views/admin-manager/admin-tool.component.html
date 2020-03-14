@@ -1,0 +1,90 @@
+<div class="btn-dashboard">
+  <span>
+      <button mat-raised-button color="warn">Thêm user</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Sửa</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Nạp tiền</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Rút tiền</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Lịch sử ví</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Danh sách đơn hàng</button>
+  </span>
+  <span class="top-feature">
+      <button mat-raised-button color="warn">Đơn hàng mới</button>
+  </span>    
+</div>
+
+<h2 class="title-lst-client">Danh sách thành viên</h2>
+
+<div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+      
+      <ng-container matColumnDef="userCode">
+        <mat-header-cell class="header" *matHeaderCellDef> 
+            <div  class="tbTitle">userCode</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.userCode}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="username">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">username</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">firstName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="lastName">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">lastName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="phone">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">lastName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="statusDisplay">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">lastName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.statusDisplay}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="rightDisplay">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">lastName</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.rightDisplay}} </mat-cell>
+      </ng-container>
+
+      <ng-container  matColumnDef="createdDate">
+        <mat-header-cell class="header" *matHeaderCellDef>
+            <div  class="tbTitle">createdDate</div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.createdDate}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    
+  </div>

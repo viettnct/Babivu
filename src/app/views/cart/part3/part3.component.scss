@@ -1,0 +1,178 @@
+
+.checkout-step {
+    overflow: hidden;
+}
+.checkout-step .cs-step {
+    float: left;
+    width: 33.33%;
+    min-height: 46px;
+    position: relative;
+    z-index: 1;
+    background: #f5f5f5;
+    line-height: 46px;
+    text-align: center;
+}
+.checkout-step .cs-step.active {
+    background: #48576f;
+}
+.checkout-step .cs-step.deactive .cs-number {
+    background: #39b54a;
+}
+.checkout-step .cs-number {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background: #48576f;
+    line-height: 30px;
+    text-align: center;
+    margin-right: 5px;
+    color: #fff;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+.checkout-step .cs-step.active:after {
+    background: url(../../../../assets/images/arrowright_active.png) no-repeat;
+}
+.checkout-step .cs-step.active .cs-number {
+    background: #c81623;
+    color: #fff;
+}
+.checkout-step .cs-name {
+    color: #333;
+}
+.checkout-step .cs-step.active .cs-name {
+    color: #fff;
+}
+.checkout-step .cs-step:after {
+    content: "";
+    background: url(../../../../assets/images/arowright.png) no-repeat;
+    width: 19px;
+    height: 46px;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: -19px;
+}
+.checkout-step .cs-step:nth-child(1) {
+    z-index: 4;
+}
+.checkout-step .cs-step:nth-child(2) {
+    z-index: 3;
+}
+.checkout-step .cs-step:nth-child(3) {
+    z-index: 2;
+}
+.cs-step .fa-check { 
+    padding-top: 7px;
+}
+.detail-link ul li:last-child {
+    border-right: none;
+}
+.detail-link ul li a {
+    color: #fff;
+}
+.total-price {
+    margin-bottom: 10px;
+}
+.box-order-success .box-list-success ul li {
+    width: 25%;
+    float: left;
+    margin-bottom: 15px;
+}
+.info-box-list {
+    border: 1px dashed #ddd;
+    padding: 10px;
+    min-height: 83px;
+}
+.thumb-ls {
+    float: left;
+}
+.icon-check {
+    float: right;
+}
+.text-thumbs-list {
+    margin: 0 30px 0 70px;
+}
+.checkout-step .feedback {
+    float: left;
+    width: 33.33%;
+    min-height: 46px;
+    position: relative;
+    z-index: 1;
+    background: #f5f5f5;
+    line-height: 46px;
+    text-align: center;
+}
+.checkout-step .feedback.active {
+    background: #48576f;
+}
+.checkout-step .feedback.deactive .cs-number {
+    background: #39b54a;
+}
+.checkout-step .feedback.active:after {
+    background: url(../../../../assets/images/arrowright_active.png) no-repeat;
+}
+.checkout-step .feedback.active .cs-number {
+    background: #c81623;
+    color: #fff;
+}
+.checkout-step .feedback.active .cs-name {
+    color: #fff;
+}
+.checkout-step .feedback:nth-child(1) {
+    z-index: 4;
+}
+.checkout-step .feedback:nth-child(2) {
+    z-index: 3;
+}
+.checkout-step .feedback:nth-child(3) {
+    z-index: 2;
+}
+.feedback .fa-check { 
+    padding-top: 7px;
+}
+.fixed .fix{
+    position: fixed;
+    bottom: 200px;
+    right: 0;
+    width: 100px;
+}
+
+// ---------------------------------
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+.box-chipo {
+    border-top-color: #f15922 !important;
+}
+.text-green {
+    color: #00a65a !important;
+    font-size: 18px;
+    .box-title {
+        font-size: 18px;
+        margin-left: 10px;
+    }
+}
+.box-ls {
+    border: 1px solid #dadada !important;
+    background: #fafafa;
+    padding: 10px;
+}
+.success {
+    color: white;
+    background-color: #00a65a;
+    width: 90px !important;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+}
