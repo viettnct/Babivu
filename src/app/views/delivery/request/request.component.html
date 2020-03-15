@@ -1,0 +1,216 @@
+<div *ngFor="let message of messages" class="message alert {{message.messageClass}}"
+     role="alert">{{message.detail}}</div>
+
+<div autoscroll="true" class="ng-scope">
+    <div class="row">
+        <div class="col-left pr-2 pl-2 mb-3 mb-md-0">
+            <div class="block">
+                <div class="block-title text-uppercase p-2 font-weight-bold">Thông tin kiện hàng</div>
+                <div class="block-content p-3">
+                    <form #deliveryForm="ngForm"
+                          (ngSubmit)="saveDelivery(deliveryForm)"
+                          [ngFormOptions]="{updateOn: 'blur'}">
+                        <div class="form-group">
+                            <label for="shippingMethod">Hình thức nhận hàng</label>
+                            <select class="form-control" id="shippingMethod" name="status" ngModel
+                                    [(ngModel)]="delivery.shippingMethod">
+                                <option *ngFor="let item of shippingMethod" [ngValue]="item.value"
+                                        data-status="">{{item.displayValue}}</option>
+                            </select>
+                            <div class="alert-no-bg">
+                                <small role="alert">(*) Nếu sản phẩm của quý khách có chứa pin, vui lòng không chọn hình
+                                    thức giao hàng nhanh / giao hàng hỏa tốc / giao hàng bằng máy bay.</small>
+                            </div>
+                        </div>
+                        <div class="shipping-unit-info">
+                            <div class="form-row">
+                                <div class="form-group col-sm">
+                                    <label for="shippingUnitName">Tên nhà xe <span class="alert-no-bg">*</span></label>
+                                    <input type="text" class="form-control" id="shippingUnitName"
+                                           name="shippingUnitName"
+                                           required #shippingUnitName="ngModel" ngModel placeholder="Tên nhà xe"
+                                           [(ngModel)]="delivery.shippingUnitName">
+                                    <div *ngIf="shippingUnitName.invalid && ((shippingUnitName.dirty || shippingUnitName.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="shippingUnitName.errors.required" role="alert">Trường "Tên nhà xe"
+                                            không
+                                            được để trống</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm">
+                                    <label for="shippingUnitPhone">Số điện thoại <span
+                                            class="alert-no-bg">*</span></label>
+                                    <input type="text" class="form-control" id="shippingUnitPhone"
+                                           name="shippingUnitPhone"
+                                           placeholder="Số ĐT nhà xe"
+                                           required #shippingUnitPhone="ngModel" ngModel
+                                           [(ngModel)]="delivery.shippingUnitPhone">
+                                    <div *ngIf="shippingUnitPhone.invalid && ((shippingUnitPhone.dirty || shippingUnitPhone.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="shippingUnitPhone.errors.required" role="alert">Trường "Số điện
+                                            thoại" không
+                                            được để trống</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="shippingUnitAddress">Địa chỉ <span class="alert-no-bg">*</span></label>
+                                <input type="text" class="form-control" id="shippingUnitAddress" name="shippingUnitAddress"
+                                       placeholder="Địa chỉ nhà xe"
+                                       required #shippingUnitAddress="ngModel" ngModel
+                                       [(ngModel)]="delivery.shippingUnitAddress">
+                                <div *ngIf="shippingUnitAddress.invalid && ((shippingUnitAddress.dirty || shippingUnitAddress.touched)|| deliveryForm.submitted)"
+                                     class="alert-no-bg">
+                                    <small *ngIf="shippingUnitAddress.errors.required" role="alert">Trường "Địa chỉ" không
+                                        được để trống</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="receiver-info">
+                            <div class="form-row">
+                                <div class="form-group col-sm">
+                                    <label for="receiverName">Tên người liên hệ <span class="alert-no-bg">*</span></label>
+                                    <input type="text" class="form-control" id="receiverName" name="receiverName"
+                                           required #receiverName="ngModel" ngModel placeholder="Tên người liên hệ"
+                                           [(ngModel)]="delivery.receiverName">
+                                    <div *ngIf="receiverName.invalid && ((receiverName.dirty || receiverName.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="receiverName.errors.required" role="alert">Trường "Tên người liên hệ" không được để trống</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm">
+                                    <label for="receiverPhone">Số điện thoại <span class="alert-no-bg">*</span></label>
+                                    <input type="text" class="form-control" id="receiverPhone" name="receiverPhone"
+                                           placeholder="Số ĐT người liên hệ"
+                                           required #receiverPhone="ngModel" ngModel
+                                           [(ngModel)]="delivery.receiverPhone">
+                                    <div *ngIf="receiverPhone.invalid && ((receiverPhone.dirty || receiverPhone.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="receiverPhone.errors.required" role="alert">Trường "Số điện thoại" không được để trống</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-sm">
+                                    <label for="receiverProvince">Tỉnh/Thành phố <span class="alert-no-bg">*</span></label>
+                                    <select class="form-control" id="receiverProvince" name="status" ngModel required
+                                            [(ngModel)]="delivery.receiverProvince" #receiverProvince="ngModel">
+                                        <option *ngFor="let item of receiverProvinceList" [ngValue]="item.value"
+                                                data-status="">{{item.displayValue}}</option>
+                                    </select>
+                                    <div *ngIf="receiverProvince.invalid && ((receiverProvince.dirty || receiverProvince.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="receiverProvince.errors.required" role="alert">Trường "Tỉnh/Thành phố" không được để trống</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm">
+                                    <label for="receiverDistrict">Quận/Huyện <span class="alert-no-bg">*</span></label>
+                                    <select class="form-control" id="receiverDistrict" name="status" ngModel required
+                                            [(ngModel)]="delivery.receiverDistrict" #receiverDistrict="ngModel">
+                                        <option *ngFor="let item of receiverDistrictList" [ngValue]="item.value"
+                                                data-status="">{{item.displayValue}}</option>
+                                    </select>
+                                    <div *ngIf="receiverDistrict.invalid && ((receiverDistrict.dirty || receiverDistrict.touched)|| deliveryForm.submitted)"
+                                         class="alert-no-bg">
+                                        <small *ngIf="receiverDistrict.errors.required" role="alert">Trường "Quận/Huyện" không được để trống</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="receiverAddress">Địa chỉ số nhà <span class="alert-no-bg">*</span></label>
+                                <input type="text" class="form-control" id="receiverAddress" name="receiverAddress"
+                                       placeholder="Địa chỉ nhà xe"
+                                       required #receiverAddress="ngModel" ngModel
+                                       [(ngModel)]="delivery.receiverAddress">
+                                <div *ngIf="receiverAddress.invalid && ((receiverAddress.dirty || receiverAddress.touched)|| deliveryForm.submitted)"
+                                     class="alert-no-bg">
+                                    <small *ngIf="receiverAddress.errors.required" role="alert">Trường "Địa chỉ số nhà" không
+                                        được để trống</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note">Ghi chú</label>
+                            <textarea id="note" name="note" class="form-control"
+                                      rows="3"
+                                      [(ngModel)]="delivery.note"
+                                      placeholder="Ví dụ: Chuyển hàng ngoài giờ hàng chính, số điện thoại, tên nhà xe, bến xe ..."></textarea>
+                        </div>
+                        <div class="row ml-0">
+                            <button type="submit" class="btn btn-primary w-25 col col-3"
+                                    [disabled]="!delivery.orderCode">Lưu
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-right pr-2 pl-2">
+            <div class="delivery-list mb-3 block">
+                <div class="block-title text-uppercase p-2 font-weight-bold">Thông tin kiện hàng</div>
+                <div class="block-content p-sm-3">
+                    <div class="merchandise-filter form-row">
+                        <div class="form-group col-sm">
+                            <label for="merchandiseCode">Mã kiện hàng</label>
+                            <input type="number" class="form-control" id="merchandiseCode" name="merchandiseCode"
+                                   ngModel
+                                   [(ngModel)]="merchandiseCode">
+                        </div>
+                        <div class="form-group col-sm">
+                            <label for="warehouse">Kho hàng</label>
+                            <select class="form-control" id="warehouse" name="warehouse" ngModel
+                                    [(ngModel)]="shelfPosition">
+                                <option *ngFor="let item of shelfPositionList" [ngValue]="item.value"
+                                        data-status="">{{item.displayValue}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--                    <ngx-datatable-->
+                    <!--                            class="material"-->
+                    <!--                            rowHeight="auto"-->
+                    <!--                            [rows]="merchandiseList"-->
+                    <!--                            [messages]="tableMessage"-->
+                    <!--                            [columnMode]="columnMode.force"-->
+                    <!--                            [headerHeight]="45"-->
+                    <!--                            [footerHeight]="45"-->
+                    <!--                            [limit]="5"-->
+                    <!--                            [selected]="selected"-->
+                    <!--                            [selectionType]="selectionType.checkbox"-->
+                    <!--                            [selectAllRowsOnPage]="false"-->
+                    <!--                            (select)="onSelect($event)">-->
+                    <!--                        <ngx-datatable-column-->
+                    <!--                                [width]="30"-->
+                    <!--                                [sortable]="false"-->
+                    <!--                                [canAutoResize]="false"-->
+                    <!--                                [draggable]="false"-->
+                    <!--                                [resizeable]="false"-->
+                    <!--                                [headerCheckboxable]="true"-->
+                    <!--                                [checkboxable]="true"-->
+                    <!--                        >-->
+                    <!--                        </ngx-datatable-column>-->
+                    <!--                        <ngx-datatable-column prop="merchandiseCode" name="Mã kiện"></ngx-datatable-column>-->
+                    <!--                        <ngx-datatable-column prop="netWeight" name="Cân nặng">-->
+                    <!--                            <ng-template let-value="value" ngx-datatable-cell-template>-->
+                    <!--                                <span *ngIf="value">{{value}} kg</span>-->
+                    <!--                            </ng-template>-->
+                    <!--                        </ngx-datatable-column>-->
+                    <!--                        <ngx-datatable-column name="Thể tích">-->
+                    <!--                            <ng-template let-row="row" ngx-datatable-cell-template>-->
+                    <!--                                <span *ngIf="row.length && row.width && row.height">{{row.length}} x {{row.width}}-->
+                    <!--                                    x {{row.height}}</span>-->
+                    <!--                            </ng-template>-->
+                    <!--                        </ngx-datatable-column>-->
+                    <!--                        <ngx-datatable-column prop="chargedWeight" name="Quy đổi">-->
+                    <!--                            <ng-template let-value="value" ngx-datatable-cell-template>-->
+                    <!--                                <span *ngIf="value">{{value}} kg</span>-->
+                    <!--                            </ng-template>-->
+                    <!--                        </ngx-datatable-column>-->
+                    <!--                        <ngx-datatable-column prop="shelfPosition" name="Mã vị trí">-->
+                    <!--                        </ngx-datatable-column>-->
+                    <!--                    </ngx-datatable>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
